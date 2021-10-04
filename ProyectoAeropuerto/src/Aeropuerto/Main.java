@@ -20,6 +20,9 @@ public class Main {
         
         //insertar datos de los Aeropuertos
         insertarDatosAeropuerto(aeropuertos);
+        
+        //menu
+        menu();
     }
     
     public static void insertarDatosAeropuerto(Aeropuerto aero[]){
@@ -49,14 +52,14 @@ public class Main {
         aero[2].getCompania("Volaris").getVuelo("VO56").insertarPasajero(new Pasajero("Adriana","JSAE656","Mexicana"));
         aero[2].getCompania("Volaris").getVuelo("VO57").insertarPasajero(new Pasajero("Ivan","TYSQ9856","Mexicana"));
         
-        aero[1] = new AeropuertoPrivado("Garten","Berlin","Alemania");
-        aero[1].insertarCompania(new Compania("AeroBerlin"));
+        aero[3] = new AeropuertoPrivado("Garten","Berlin","Alemania");
+        aero[3].insertarCompania(new Compania("AeroBerlin"));
         String empresas2[] = {"Modelo","Banorte"};
-        ((AeropuertoPrivado)aero[1]).insertarEmpresas(empresas2);
-        aero[1].getCompania("AeroBerlin").insertarVuelo(new Vuelo("AB15", "Berlin", "Paris", 380.9, 150));
-        aero[1].getCompania("AeroBerlin").insertarVuelo(new Vuelo("AB16", "Berlin", "China", 750.9, 120));
-        aero[1].getCompania("AeroBerlin").getVuelo("AB15").insertarPasajero(new Pasajero("Adriana","JSAE656","Mexicana"));
-        aero[1].getCompania("AeroBerlin").getVuelo("AB16").insertarPasajero(new Pasajero("Ivan","TYSQ9856","Mexicana")); 
+        ((AeropuertoPrivado)aero[3]).insertarEmpresas(empresas2);
+        aero[3].getCompania("AeroBerlin").insertarVuelo(new Vuelo("AB15", "Berlin", "Paris", 380.9, 150));
+        aero[3].getCompania("AeroBerlin").insertarVuelo(new Vuelo("AB16", "Berlin", "China", 750.9, 120));
+        aero[3].getCompania("AeroBerlin").getVuelo("AB15").insertarPasajero(new Pasajero("Adriana","JSAE656","Mexicana"));
+        aero[3].getCompania("AeroBerlin").getVuelo("AB16").insertarPasajero(new Pasajero("Ivan","TYSQ9856","Mexicana")); 
     }
     
     public static void menu(){
@@ -69,13 +72,15 @@ public class Main {
             System.out.println("4.Lista de vuelos por compañia");
             System.out.println("5.Listar vuelos con origen y destino");
             System.out.println("6.Salir");
-            System.out.println("Seleccione un opcion");
+            System.out.print("Seleccione un opcion: ");
             opcion = entrada.nextInt();
             
             switch(opcion){
-                case 1: 
+                case 1: System.out.println("");
+                        mostrarDatosAeropuertos(aeropuertos);
                         break;
-                case 2: 
+                case 2: System.out.println("");
+                        mostrarPatrocinio(aeropuertos);
                         break;
                 case 3: 
                         break;
@@ -97,7 +102,31 @@ public class Main {
                 System.out.println("Nombre: "+aeropuertos[i].getNombre());
                 System.out.println("Ciudad: "+aeropuertos[i].getCiudad());
                 System.out.println("Pais: "+aeropuertos[i].getPais());
+            } else {
+                System.out.println("Aeropuerto Publico");
+                System.out.println("Nombre: "+aeropuertos[i].getNombre());
+                System.out.println("Ciudad: "+aeropuertos[i].getCiudad());
+                System.out.println("Pais: "+aeropuertos[i].getPais());
             }
+            System.out.println("");
+        }
+    }
+    
+    public static void mostrarPatrocinio(Aeropuerto aeropuertos[]){
+        String empresas[];
+        for(int i=0;i<aeropuertos.length;i++){
+            if(aeropuertos[i] instanceof AeropuertoPrivado){
+                System.out.println("Aeropuerto Privado: "+aeropuertos[i].getNombre());
+                empresas = ((AeropuertoPrivado)aeropuertos[i]).getListaEmpresas();
+                System.out.println("Empresas: ");
+                for(int j=0;j<empresas.length;j++){
+                    System.out.println(empresas[j]);
+                }
+            } else {
+                System.out.println("Aeropuerto Publico: "+aeropuertos[i].getNombre());
+                System.out.println("Subvencion: "+((AeropuertoPublico)aeropuertos[i]).getSubvencion());
+            }
+            System.out.println("");
         }
     }
 }
