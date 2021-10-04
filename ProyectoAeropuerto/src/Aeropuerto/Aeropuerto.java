@@ -44,6 +44,11 @@ public class Aeropuerto {
         return ciudad;
     }
 
+    public String getPais() {
+        return pais;
+    }
+    
+
     public Compania[] getListaCompania() {
         return listaCompania;
     }

@@ -89,4 +89,15 @@ public class Main {
             }
         } while (opcion != 6);
     }
+    
+    public static void mostrarDatosAeropuertos(Aeropuerto aeropuertos[]){
+        for(int i=0;i<aeropuertos.length;i++){
+            if(aeropuertos[i] instanceof AeropuertoPrivado){
+                System.out.println("Aeropuerto Privado");
+                System.out.println("Nombre: "+aeropuertos[i].getNombre());
+                System.out.println("Ciudad: "+aeropuertos[i].getCiudad());
+                System.out.println("Pais: "+aeropuertos[i].getPais());
+            }
+        }
+    }
 }
