@@ -37,6 +37,11 @@ public class Vuelo {
         return identificadorVuelo;
     }
 
+    public String getCiudadOrigen() {
+        return ciudadOrigen;
+    }
+
+    
     public String getCiudadDestino() {
         return ciudadDestino;
     }
