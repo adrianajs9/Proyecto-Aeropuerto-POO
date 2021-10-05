@@ -63,7 +63,12 @@ public class Main {
     }
     
     public static void menu(){
+        String nombreAeropuerto;
         int opcion;
+        Aeropuerto aeropuerto;
+        String nombrecompania;
+        Compania compania;
+        
         do {            
             System.out.println("\t.:Menu");
             System.out.println("1.Consultar los aeropuertos gestionados(Publicos, Privados)");
@@ -82,9 +87,31 @@ public class Main {
                 case 2: System.out.println("");
                         mostrarPatrocinio(aeropuertos);
                         break;
-                case 3: 
+                case 3: entrada.nextLine();
+                        System.out.print("De que aeropuerto quieres conocer la lista de compañias? ");
+                        nombreAeropuerto = entrada.nextLine();
+                        aeropuerto = buscarAeropuerto(nombreAeropuerto, aeropuertos);
+                        if (aeropuerto == null) {
+                            System.out.println("El aeropuerto no existe");
+                        } else {
+                            mostrarCompanias(aeropuerto);
+                        }
                         break;
-                case 4: 
+                case 4: System.out.print("Selecciona un aeropuerto: ");
+                        nombreAeropuerto = entrada.nextLine();
+                        aeropuerto = buscarAeropuerto(nombreAeropuerto, aeropuertos);
+                        if (aeropuerto == null) {
+                            System.out.println("El aeropuerto no existe");
+                        } else {
+                            System.out.print("Digite el nombre de la compañia: ");
+                            nombrecompania = entrada.nextLine();
+                            compania = buscarCompania(nombrecompania, aeropuerto.getListaCompania());
+                            if (compania == null) {
+                                System.out.println("La compañia no existe");
+                            } else {
+                                mostrarVuelos(compania);
+                            }
+                        }
                         break;
                 case 5:
                         break;
@@ -127,6 +154,51 @@ public class Main {
                 System.out.println("Subvencion: "+((AeropuertoPublico)aeropuertos[i]).getSubvencion());
             }
             System.out.println("");
+        }
+    }
+    
+    public static Aeropuerto buscarAeropuerto(String nombre, Aeropuerto aeropuertos[]){
+        boolean encontrado = false;
+        int i=0;
+        Aeropuerto aero = null;
+        while ((!encontrado) && (i<aeropuertos.length)) {            
+            if (nombre.equals(aeropuertos[i].getNombre())) {
+                encontrado = true;
+                aero = aeropuertos[i];
+            }
+            i++;
+        }
+        return aero;
+    }
+    
+    public static void mostrarCompanias(Aeropuerto aeropuerto){
+        System.out.println("Las compañias del aeropuerto "+aeropuerto.getNombre()+" son:");
+        for (int i = 0; i < aeropuerto.getNumCompania(); i++) {
+            System.out.println(aeropuerto.getCompania(i).getNombre());
+        }
+    }
+    
+    public static Compania buscarCompania(String nombre, Compania companias[]){
+        boolean encontrado = false;
+        int i=0;
+        Compania comp = null;
+        while ((!encontrado) && (i<companias.length)) {            
+            if (nombre.equals(companias[i].getNombre())) {
+                encontrado = true;
+                comp = companias[i];
+            }
+            i++;
+        }   
+        return comp;
+    }
+    
+    public static void mostrarVuelos(Compania compania){
+        System.out.println("Los vuelos de la compañia "+compania.getNombre()+" son:");
+        for (int i = 0; i < compania.getNumVuelo(); i++) {
+            System.out.println(compania.getVuelo(i).getIdentificadorVuelo());
+            System.out.println(compania.getVuelo(i).getCiudadOrigen());
+            System.out.println(compania.getVuelo(i).getCiudadDestino());
+            System.out.println(compania.getVuelo(i).getPrecio());
         }
     }
 }
