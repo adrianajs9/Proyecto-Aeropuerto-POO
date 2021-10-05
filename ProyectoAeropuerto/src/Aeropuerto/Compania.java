@@ -29,6 +29,7 @@ public class Compania {
         numVuelo++;
     }
 
+    
     public String getNombre() {
         return nombre;
     }
